@@ -4,13 +4,14 @@
 #include"vector.h"
 
 int* arr = nullptr;
-int size = 0;
-int capacity = 0;
+int size {0};
+int capacity { };
 
 Vector::Vector(int size) : size(size) {
     if(size < 0)
         size = 1;
-    arr = new int[size] {};
+    capacity = size + 10;  
+    arr = new int[capacity] { };
 }
 
 Vector::~Vector(){
@@ -48,30 +49,23 @@ int Vector::get_front() {
 int Vector::get_back() {
     return arr[size-1];
 }
-void Vector::add_size(){
-    int* arr2 = new int[size+10];
+
+void Vector::expand_capacity(){
+    capacity *= 2;
+    int* arr2 = new int[capacity] { };
+    
     for(int i{0};i<size;++i)
-        arr2[i] = arr[i];
-    std::swap(arr, arr2);
+        arr2[i] = arr[i];  
+    
+    std::swap(arr, arr2); 
+
     delete[] arr2;
 }
 
 void Vector::push_back(int val){
-    // We make a new arr with size+1 width;
-    int* arr2 = new int[size+1]; // size + 1 steps
-
-    // copy the old arr to the new one
-    for(int i{0};i<size;++i)    // 3 size + 1 steps
-        arr2[i] = arr[i];
-   
-    // add the new value to it's position  
-    arr2[size++] = val;         // 2 stpes
+    // first check if the size grow to the capacity or not yes !
+    if(size == capacity)
+        expand_capacity(); // we make the capacity double
     
-    // now we swap the pointers 
-    std::swap(arr,arr2);        // 3 steps 
-    
-    // Remove the temporary array that we don't need it anymore 
-    delete[] arr2;              // size steps 
-
-    // Total: 5size + 7
+    arr[size++] = val; // then we add the previous size and we incremented 
 }

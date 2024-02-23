@@ -21,8 +21,7 @@ public:
     int find(int val);
     int get_front();
     int get_back();
-    void add_size();
-    void push_front(int val); 
+    void expand_capacity();
     void push_back(int val);
 };
 
