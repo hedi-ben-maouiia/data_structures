@@ -11,4 +11,17 @@ int main(){
 
     std::cout << v.find(5)  <<"\n" ;
     std::cout << v.find(55) << "\n";
+
+    // Test the push_back and the push_front function 
+    v.push_back(11324);
+    v.print();
+    v.push_front(14);
+    v.print();
+    std::cout << "******************\n";
+    Vector v2(1);
+    v2.push_back(14);
+    v2.push_front(1);
+    v2.push_front(2);
+    v2.print();
+
 }

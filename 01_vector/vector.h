@@ -8,7 +8,8 @@ private:
 
     int* arr; 
     int size;
-
+    // For the capacity trick
+    int capacity;
 public:
 
     Vector(int size);
@@ -20,9 +21,9 @@ public:
     int find(int val);
     int get_front();
     int get_back();
-    int push_front(int val); 
-    int push_back(int val); 
-
+    void add_size();
+    void push_front(int val); 
+    void push_back(int val);
 };
 
 #endif // !VECTOR_H
