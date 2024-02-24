@@ -69,3 +69,19 @@ void Vector::push_back(int val){
     
     arr[size++] = val; // then we add the previous size and we incremented 
 }
+
+void Vector::insertion(int idx, int val){
+    assert( 0 <= idx  && idx <= size);
+    
+    // we cannot add anymore 
+    if(size == capacity) 
+        expand_capacity();
+
+    //Shift all teh data to right first
+    for(int i=size-1; i >= idx;--i)
+        arr[i+1] = arr[i];
+
+    arr[idx] = val;
+    ++size;
+
+}

@@ -1,24 +1,37 @@
 #include"vector.h"
-
+#include<stdio.h>
 
 int main(){
     Vector v(10);
  
     for(int i{0}; i < 10;++i)
-        v.set(i, i+1); 
+        v.set(i, i); 
 
     v.print();
 
-    std::cout << v.find(5)  <<"\n" ;
-    std::cout << v.find(55) << "\n";
-
-    // Test the push_back and the push_front function 
-    v.push_back(11324);
+    int n; 
+    scanf("%d", &n);
+   
+    v.right_rotate(n);
+    
     v.print();
-    v.print();
-    std::cout << "******************\n";
-    Vector v2(1);
-    v2.push_back(14);
-    v2.print();
+    
+    v.left_rotate();
 
+    v.right_rotate(); 
+    v.print();
+    
+    v.insertion(2,939);
+    v.push_back(7543);
+    int a = v.pop(2);  
+
+    printf("#########################\n");
+    
+    v.print();
+    printf("the deleted number = %d\n", a);
+
+    for(int i{0}; i<4;++i)
+        printf("Position of 9 = %d\n", v.find_transposition(9)); 
+
+    v.print();
 }

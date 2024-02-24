@@ -10,8 +10,9 @@ private:
     int size;
     // For the capacity trick
     int capacity;
+    
+        void expand_capacity();
 public:
-
     Vector(int size);
     ~Vector();
 
@@ -21,8 +22,14 @@ public:
     int find(int val);
     int get_front();
     int get_back();
-    void expand_capacity();
     void push_back(int val);
+    void insertion(int idx, int val);
+    // Homeworks functions 
+    void right_rotate();
+    void left_rotate();
+    void right_rotate(int times);
+    int pop(int idx);
+    int find_transposition(int value);
 };
 
 #endif // !VECTOR_H
