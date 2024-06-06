@@ -59,7 +59,8 @@ node_ptr find_previous(List* l, void* data)
 {
    // TODO : find a solution for comparing the prev->data and data for both (strings, integer) values 
     node_ptr  prev = l->head;
-    while(prev->next != NULL){
+    int* val1 = (int*)data;
+    while(prev->next != NULL && (*val1 != *(int*)prev->next->data)){
         prev = prev->next;
     }
     return prev; 
@@ -82,7 +83,8 @@ void delete(List* l, void* data)
     node_ptr prev,to_remove; 
     prev = find_previous(l,data);
     if(prev->next != NULL){
-        to_remove = prev->next;
+        to_remove  = prev->next;
+        prev->next = to_remove->next;
         free(to_remove);
     }
 }
@@ -91,15 +93,16 @@ void print_list_data(void* data,size_t type)
 {    
     switch (type) {
         case 4:
-            printf("%d\n",*(int*)data);  
+            printf("%d ",*(int*)data);  
             break;
         case 8:
-            printf("%s\n",(char*)data);
+            printf("%s ",(char*)data);
             break;  
         default:
             break;
     }    
 }
+
 void list_dump(List* l)
 {
     node_ptr tmp = l->head;
@@ -108,9 +111,37 @@ void list_dump(List* l)
         print_list_data(tmp->data,tmp->type);
         tmp = tmp->next;
     }
-
+    printf("\n");
 }
-
+List* add_two(List* l1, List* l2)
+{
+    node_ptr tmp1  = l1->head;
+    node_ptr tmp2  = l2->head;
+    List*    res   = create_list();
+    size_t   carry = 0;
+    while(tmp1 != NULL || tmp2 != NULL){
+        size_t   num1  = 0;
+        size_t   num2  = 0;
+        if(tmp1){
+            num1 = *(int*)tmp1->data;
+            tmp1 = tmp1->next; 
+        } 
+        if(tmp2){
+            num2 = *(int*)tmp2->data;
+            tmp2 = tmp2->next; 
+        }
+        int r  = num1 + num2 + carry; 
+        carry = r / 10; 
+        if(r >= 10){
+            r %= 10;
+        }
+        insert(res,(int*)&r,INT_SIZE);      
+    }
+    if(carry){
+        insert(res,(int*)&carry,INT_SIZE);
+    }
+     return res;
+}
 /*
 int find(void* data, List l)
 {
@@ -121,20 +152,25 @@ int find(void* data, List l)
 
 int main(void)
 {
-    List *l;
-    l = create_list();
-    insert(l,(char*)"c",STRING_SIZE);
+    List *l,*l1;/**add*/
+    l  = create_list();
+    l1 = create_list(); 
 
     for(int i = 0; i < 10;++i){
         insert(l,(int*)&i,INT_SIZE);
+        insert(l1,(int*)&i,INT_SIZE);
     }
-    int x = 2340;
-    insert(l,(int*)&x,INT_SIZE); 
-    insert(l,(char*)"rami",STRING_SIZE); 
-    insert(l,(char*)"Hedi",STRING_SIZE);
-    delete(l,(int*)&x);
- 
-    list_dump(l); 
+    int x = 5;
+    int d = 9;
+    insert(l,(int*)&x,INT_SIZE);
+    delete(l,(int*)&d); 
+    //add = add_two(l,l1);
+
+    list_dump(l);
+    list_dump(l1);
+    //list_dump(add); 
     dest_list(l);
+    dest_list(l1);
+    //dest_list(add);
     return 0;
 }

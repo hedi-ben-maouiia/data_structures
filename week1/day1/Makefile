@@ -1,14 +1,15 @@
 CC=gcc 
 CFLAGS=-Wall -Wextra -ggdb3 -pedantic -o 
 
-
-build:
-	$(CC) $(CFLAGS) list linked_list.c 
+list:
+	$(CC) $(CFLAGS) list  linked_list.c 	
+dlist:
+	$(CC) $(CFLAGS) dlist double_linked_list.c 	
 val:
-	valgrind ./list 
+	valgrind ./dlist 
 gdb:
-	gdb ./list
+	gdb ./dlist
 run:
 	./list
 clean:
-	rm -rf list
+	rm -rf dlist
