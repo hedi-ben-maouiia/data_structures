@@ -1,7 +1,0 @@
-* Notes :   
-
-** Linked List:
-
-   node is a struct that : [data,node_ptr next]
-   list is a struct that : [node_ptr head, node_ptr tail]
-
