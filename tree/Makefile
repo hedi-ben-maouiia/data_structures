@@ -3,12 +3,12 @@ CFLAGS=-Wall -Wextra -pedantic -ggdb3 -o
 
 
 build:
-	$(CC) $(CFLAGS) binary binary_tree.c
+	$(CC) $(CFLAGS) test test.c binary_tree.c
 run:
-	./binary
+	./test
 gdb:
-	gdb ./binary 
+	gdb ./test 
 val:
-	valgrind ./binary 
+	valgrind ./test
 clean:
-	rm -rf binary 
+	rm -rf test

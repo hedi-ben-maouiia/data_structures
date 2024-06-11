@@ -15,12 +15,15 @@ typedef struct tree_node {
 } tree_node;
 
 
-TREE make_null(void);
-TREE insert(int key, TREE T);
-TREE search(int key, TREE T);
-TREE delette(int key, TREE T);
-void in_order(TREE T);
-void pre_order(TREE T);
-void post_order(TREE T);
+TREE make_null(void);                       // Make TREE point to null
+void tree_dest(TREE T);                     // Tree destructor 
+TREE tree_insert(int key, TREE T);               // insert in normal tree randomly
+TREE insert(int key, TREE root);        // insert in binary_search_tree
+TREE search(int key, TREE T);               // Binary Search Tree
+TREE find_min(TREE T);                      // Find minimum inside a binary_search_tree
+TREE delete(int key, TREE T);               // Delete from binary_search_tree 
+void in_order(TREE T);                      // print elements of tree inorder  
+void pre_order(TREE T);                     // print elements tree pre_order 
+void post_order(TREE T);                    // print elements tree post_order 
 
 #endif // BINARY_TREE_H

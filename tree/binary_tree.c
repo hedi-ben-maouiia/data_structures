@@ -1,11 +1,10 @@
 #include "binary_tree.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 TREE make_null(void)
 {
     return NULL;
 }
+
 TREE create_node(int key)
 {
     TREE T = (TREE) malloc(sizeof(tree_node));
@@ -15,7 +14,8 @@ TREE create_node(int key)
         T->left = T->right = NULL;
         return T; 
 }
-TREE insert(int key, TREE T)
+
+TREE tree_insert(int key, TREE T)
 {
     if(T == NULL){
         T = create_node(key);        
@@ -50,7 +50,7 @@ void post_order(TREE T)
 void pre_order(TREE T)
 {
     if(T != NULL){
-        printf("%d ", T->key);
+        printf("%d ", T->key); 
         pre_order(T->left);
         pre_order(T->right);
     }
@@ -65,17 +65,17 @@ void tree_dest(TREE T)
     free(tmp);
 }
 
-// Binary Search Tree 
-TREE bst_inster(int key, TREE root)
+// Binary Search Tree functions implementations
+TREE insert(int key, TREE root)
 {
     if(root == NULL){
         root = create_node(key); 
     }
     else if(key < root->key){
-        root->left = bst_inster(key,root->left);
+        root->left = insert(key,root->left);
     }
     else if(key > root->key) {
-        root->right = bst_inster(key, root->right);
+        root->right = insert(key, root->right);
     }
     return root;
 }
@@ -90,31 +90,47 @@ TREE search(int key, TREE root)
         return ( search(key, root->right) ); 
 }
 
-int main(void)
+TREE find_min(TREE T)
 {
-    TREE bst = make_null();
-    TREE T = make_null();
-    for(int i = 1; i <= 10; ++i ){
-        T= insert(i,T);
-    }
-    bst = bst_inster(50, bst);
-    bst = bst_inster(40, bst);
-    bst = bst_inster(60, bst);
-    bst = bst_inster(70, bst);
-    bst = bst_inster(10, bst);
-    bst = bst_inster(20, bst);
-    TREE tmp = search(60,bst); 
-    printf(" we find %d in bst\n", tmp->key); 
-    in_order(T);
-    printf("\nBST={In order: "); 
-    in_order(bst);
-    printf(" Pre order: "); 
-    pre_order(bst);
-    printf("}\n"); 
-    post_order(T); 
-    printf("\n"); 
-    pre_order(T); 
-    tree_dest(T);
-    tree_dest(bst);
+    if(T == NULL )
+        return NULL;
+    if(T->left == NULL) 
+        return T;     
+return ( find_min(T->left) ) ;
+
 }
+
+TREE delete( int key, TREE T )
+{
+    TREE to_remove, child;
+    if (T == NULL){
+        fprintf(stderr,"There is no such key = %d \n",key);
+    }
+    else 
+    if (key < T->key )
+        T->left = delete(key,T->left);
+    else 
+    if (key > T->key)
+        T->right = delete(key, T->right);
+    else 
+    if (T->left && T->right)
+    {
+        to_remove = find_min(T->right);
+        T->key    = to_remove->key;
+        T->right  = delete(T->key,T->right);
+    }    
+    else 
+    {
+        to_remove = T;
+        if(T->left == NULL)
+            child = T->right;
+        if(T->right == NULL)
+            child = T->left;
+        free(to_remove);
+        return child;
+    } 
+return T;
+}
+
+
 
