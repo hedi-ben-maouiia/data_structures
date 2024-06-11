@@ -5,8 +5,6 @@
 #include <string.h>
 
 
-
-
 typedef struct tree_node *TREE; 
 typedef struct tree_node {
     int     key;
@@ -25,5 +23,10 @@ TREE delete(int key, TREE T);               // Delete from binary_search_tree
 void in_order(TREE T);                      // print elements of tree inorder  
 void pre_order(TREE T);                     // print elements tree pre_order 
 void post_order(TREE T);                    // print elements tree post_order 
+void recover_tree( TREE root);              // we have an wrong binary_search_tree with exactly two node swaped places and we send it to recover_tree to make it correct 
+
+
+
+
 
 #endif // BINARY_TREE_H

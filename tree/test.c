@@ -4,6 +4,14 @@
 
 int main(void)
 {
+    TREE test = make_null();
+    test = tree_insert(1,test);
+    tree_insert(3,test);
+    tree_insert(2,test);
+    in_order(test);  
+    recoverTree(test);
+    printf("\n"); 
+    in_order(test);  
     // Let's make a NULL tree pointer 
     TREE root = make_null();  
     // Now let's try to insert inside root using binary_search_tree 

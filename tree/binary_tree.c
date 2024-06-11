@@ -21,13 +21,13 @@ TREE tree_insert(int key, TREE T)
         T = create_node(key);        
     } 
     else if(T->left == NULL)
-        T->left = insert(key, T->left);
+        T->left = tree_insert(key, T->left);
 
     else if(T->right == NULL)
-        T->right = insert(key, T->right);
+        T->right = tree_insert(key, T->right);
     
     else if(T->right != NULL && T->left != NULL){
-        T->left = insert(key,T->left);
+        T->left = tree_insert(key,T->left);
     } 
     return T;  
 }
@@ -78,6 +78,32 @@ TREE insert(int key, TREE root)
         root->right = insert(key, root->right);
     }
     return root;
+}
+TREE first,prev,second; 
+
+void inorder_traversal(TREE root)
+{
+    if(root == NULL)
+        return;
+    inorder_traversal(root->left);
+    if(prev != NULL && root->key < prev->key){
+        if(first == NULL)
+            first = prev;
+        second = root;
+    }
+    prev = root;
+    inorder_traversal(root->right);  
+}
+
+void recover_tree( TREE root) {
+    if(root == NULL)
+        return;
+    first = NULL, second = NULL, prev = NULL;
+    inorder_traversal(root);
+    
+    int tmp = first->key;
+    first->key  = second->key;
+    second->key = tmp; 
 }
 
 TREE search(int key, TREE root)
