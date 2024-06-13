@@ -130,7 +130,8 @@ TREE delete( int key, TREE T )
 {
     TREE to_remove, child;
     if (T == NULL){
-        fprintf(stderr,"There is no such key = %d \n",key);
+        fprintf(stderr,"ERROR: there is no such number %d to be delete \n",key);
+        return NULL; 
     }
     else 
     if (key < T->key )
