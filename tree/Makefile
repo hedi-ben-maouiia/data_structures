@@ -2,8 +2,8 @@ CC=gcc
 CFLAGS=-Wall -Wextra -pedantic -ggdb3 -o 
 
 
-build:
-	$(CC) $(CFLAGS) test test.c binary_tree.c
+build: test.c binary_tree.c avl_tree.c
+	$(CC) $(CFLAGS) test test.c binary_tree.c avl_tree.c 
 run:
 	./test
 gdb:

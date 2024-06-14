@@ -5,12 +5,13 @@ TREE make_null(void)
     return NULL;
 }
 
-TREE create_node(int key)
+TREE create_node(int key, color rb)
 {
     TREE T = (TREE) malloc(sizeof(tree_node));
         if(T == NULL)
             fprintf(stderr,"Cannot allocate memory\n");
         T->key = key;
+        T->rb  = rb;
         T->left = T->right = NULL;
         return T; 
 }
@@ -18,13 +19,13 @@ TREE create_node(int key)
 TREE tree_insert(int key, TREE T)
 {
     if(T == NULL){
-        T = create_node(key);        
+        T = create_node(key,RED);        
     } 
     else if(T->left == NULL)
-        T->left = tree_insert(key, T->left);
+        T->left = tree_insert(key,T->left);
 
     else if(T->right == NULL)
-        T->right = tree_insert(key, T->right);
+        T->right = tree_insert(key,T->right);
     
     else if(T->right != NULL && T->left != NULL){
         T->left = tree_insert(key,T->left);
@@ -34,10 +35,11 @@ TREE tree_insert(int key, TREE T)
 void in_order(TREE T)
 {
     if(T != NULL){
-        in_order(T->left);
-        printf("%d ", T->key);
+        in_order(T->left);        
+        printf("%d ", T->key); 
         in_order(T->right);
     }
+
 }
 void post_order(TREE T)
 {
@@ -55,6 +57,7 @@ void pre_order(TREE T)
         pre_order(T->right);
     }
 }
+
 void tree_dest(TREE T)
 {
     TREE tmp = T; 
@@ -66,16 +69,16 @@ void tree_dest(TREE T)
 }
 
 // Binary Search Tree functions implementations
-TREE insert(int key, TREE root)
+TREE insert(int key, color rb,TREE root)
 {
     if(root == NULL){
-        root = create_node(key); 
+        root = create_node(key,rb); 
     }
     else if(key < root->key){
-        root->left = insert(key,root->left);
+        root->left = insert(key,BLACK,root->left);
     }
     else if(key > root->key) {
-        root->right = insert(key, root->right);
+        root->right = insert(key,RED,root->right);
     }
     return root;
 }
